@@ -1,0 +1,148 @@
+get examples from https://t5k.org/curios/index.php?start=12&stop=15
+
+A 065 aB 066 C 067 D 068 E 069 F 070 G 071 H 072 I 073 J 074 K 075 L 076 M 077 N 078 O 079 P 080 Q 081 R 082 S 083 T 084 U 085 V 096 W 087 X 088 Y 089 Z 090
+
+GOLD
+2 3 "GOOD" "G 1 O 2 L 3 D 4"
+
+SORTING
+1000000000100011 222222222222222221 "STRONG" "S 083 O 079 R 082 T 084 I 073 N 078 G 071"
+
+LOGARITHMS
+212345678987654321 953947941937929919 "ALGORITHMS" "L 076 O 079 G 071 A 065 R 082 I 073 T 084 H 072 M 077 S 083"
+
+\documentclass{article}
+
+\usepackage{mathptmx}
+
+% Language setting
+\usepackage[english]{babel}
+
+% Set page size and margins
+
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Examples}
+
+\paragraph{Example 1} Take $p = 11$ and $q = 13$ to be our two primes $p$, $q$. So $n = 143$ and $\phi(n) = (11 - 1)(13 - 1) = 120$.
+
+We choose an integer $a$ relatively prime to $\phi(n) = 120$: Say $a = 41$. Express $1$ as a linear combination of $120$ and $41$:
+$$41 \cdot 41 - 14 \cdot 120 = 1$$
+so `$x$' is $41$. We publish $(n, a) = (143, 41)$.
+
+To encode a block $\beta$, the sender calculates $\beta^{41} \mod 143$, and to decode a received block $m$, we calculate $m^{41} \mod 143$.
+
+Thus, for example, to encode the message $\beta = 65$, the sender computes
+$$65^{41} \mod 143 = 65 \mod 143$$
+and so sends $m = 65$. On receipt of this message, anyone who knows `$x$' (the inverse of $41 \mod 143$) computes $65^{41} \mod 143$ which is equal to the original message $65$.
+
+If now we use the number-to-letter equivalents:
+\begin{center}
+\begin{tabular}{ c c c c }
+G = 1, O = 2, L = 3, D = 4, \\
+\end{tabular}
+\end{center}
+and the received message is $12/46$, the original message is decoded by calculating
+$$12^{41} \equiv 12 \mod 143$$
+and
+$$46^{41} \equiv 24 \mod 143$$
+
+Juxtaposing these blocks gives 1224, and so the message was the word G O O D.
+
+(In this example we used small primes for purposes of illustration but, in doing so, violated the requirement that the number of digits in any block should be less than the number of digits in either of the primes chosen.)
+
+\paragraph{Example 2} Take $p = 1000000000100011$ and $q = 222222222222222221$ to be our two primes $p$, $q$. So $n = 222222222244446887666666666544431$ and
+$$\phi(n) = (1000000000100011 - 1)(222222222222222221 - 1) = 222222222244446664444444444222200$$
+
+We choose an integer $a$ relatively prime to $\phi(n)$: Say $a = 139494862853911606524349744947323$. Express $1$ as a linear combination of $\phi(n)$ and $a$:
+$$119725983215366906541881876496587 \cdot a - 75155218231531710475272684277103 \cdot \phi(n) = 1$$
+so `$x$' is $119725983215366906541881876496587$. We publish
+$$(n, a) = (222222222244446887666666666544431, 139494862853911606524349744947323)$$
+
+To encode a block $\beta$, the sender calculates $\beta^{a} \mod n$, and to decode a received block $m$, we calculate $m^{x} \mod n$.
+
+Thus, for example, to encode the message $\beta = 22$, the sender computes
+\begin{align*}
+&22^{139494862853911606524349744947323} \\
+&\equiv 163644703763600866631298225238422 \mod 222222222244446887666666666544431
+\end{align*}
+and so sends $m = 163644703763600866631298225238422$. On receipt of this message, anyone who knows `$x$' (the inverse of $a \mod n$) computes
+\begin{align*}
+&163644703763600866631298225238422^{119725983215366906541881876496587} \\
+&\equiv 22 \mod 222222222244446887666666666544431
+\end{align*}
+
+If now we use the number-to-letter equivalents:
+\begin{center}
+\begin{tabular}{ c c c c c c c }
+S = 083, O = 079, R = 082, T = 084, I = 073, N = 078, G = 071, \\
+\end{tabular}
+\end{center}
+and the received message is
+\begin{align*}
+&69919240523854607121019630599125/139284243606001294924461865722675/ \\
+&129761740497411608977112018018483
+\end{align*}
+the original message is decoded by calculating
+$$69919240523854607121019630599125^{x} \equiv 83084 \mod n$$
+and
+$$139284243606001294924461865722675^{x} \equiv 82079 \mod n$$
+and
+$$129761740497411608977112018018483^{x} \equiv 78071 \mod n$$
+
+Juxtaposing these blocks gives 083084082079078071, and so the message was the word S T R O N G.
+
+\paragraph{Example 3} Take $p = 212345678987654321$ and $q = 953947941937929919$ to be our two primes $p$, $q$. So $n = 202566723449685169430593680295529999$ and
+\begin{align*}
+\phi(n) &= (212345678987654321 - 1)(953947941937929919 - 1) \\
+&= 202566723449685168264300059369945760.
+\end{align*}
+We choose an integer $a$ relatively prime to $\phi(n)$: Say $a = 153561503399845956454967606639962441$. Express $1$ as a linear combination of $\phi(n)$ and $a$:
+$$140051113584546175392105575891225401 \cdot a - 106169755765474545609016227483415834 \cdot \phi(n) = 1$$
+so `$x$' is $140051113584546175392105575891225401$. We publish
+$$(n, a) = (202566723449685169430593680295529999, 153561503399845956454967606639962441)$$
+
+To encode a block $\beta$, the sender calculates $\beta^{a} \mod n$, and to decode a received block $m$, we calculate $m^{x} \mod n$.
+
+Thus, for example, to encode the message $\beta = 82$, the sender computes
+\begin{align*}
+&82^{153561503399845956454967606639962441} \mod 202566723449685169430593680295529999 \\
+&= 85486127368849881359538683139089967 \mod 202566723449685169430593680295529999
+\end{align*}
+and so sends $m = 85486127368849881359538683139089967$. On receipt of this message, anyone who knows `$x$' (the inverse of $a \mod n$) computes
+\begin{align*}
+&85486127368849881359538683139089967^{140051113584546175392105575891225401} \\
+&\equiv 82 \mod 202566723449685169430593680295529999
+\end{align*}
+
+If now we use the number-to-letter equivalents from three-digit decimal ASCII encoding:
+\begin{center}
+\begin{tabular}{ c c c c c c c c c c }
+L = 076, O = 079, G = 071, A = 065, R = 082, I = 073, T = 084, H = 072, M = 077, S = 083, \\
+\end{tabular}
+\end{center}
+and the received message is
+\begin{align*}
+&194753998824973598074264734267684810/57760328407234384633409165135532073/ \\
+&89484846973808817159989225376884183/32717708417152903133335873976745661/ \\
+&192655613999850975665117024376064117
+\end{align*}
+the original message is decoded by calculating
+$$194753998824973598074264734267684810^{x} \equiv 65076 \mod n$$
+and
+$$57760328407234384633409165135532073^{x} \equiv 71079 \mod n$$
+and
+$$89484846973808817159989225376884183^{x} \equiv 82073 \mod n$$
+and
+$$32717708417152903133335873976745661^{x} \equiv 84072 \mod n$$
+and
+$$192655613999850975665117024376064117^{x} \equiv 77083 \mod n$$
+
+Juxtaposing these blocks gives 065076071079082073084072077083, and so the message was the word A L G O R I T H M S.
+
+\end{document}
